@@ -19,7 +19,7 @@ class HomeViewModel(val dao: NoteDao) : ViewModel() {
     }
 
     fun onAddButtonClicked(){
-        Log.d("please", "work")
+        Log.i("add", "add note clicked")
         _navigateToNote.value = 10000
     }
 
