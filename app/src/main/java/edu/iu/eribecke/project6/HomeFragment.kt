@@ -29,16 +29,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-        val view = binding.root
         val application = requireNotNull(this.activity).application
         val dao = NoteDatabase.getInstance(application).noteDao
         val viewModelFactory = HomeViewModelFactory(dao)
-        val viewModel = ViewModelProvider(
-            this, viewModelFactory).get(HomeViewModel::class.java)
+        val viewModel = ViewModelProvider(this,
+            viewModelFactory).get(HomeViewModel::class.java)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        val view = binding.root
         val adapter = NoteItemAdapter{ noteId ->
             viewModel.onNoteClicked(noteId)
         }
