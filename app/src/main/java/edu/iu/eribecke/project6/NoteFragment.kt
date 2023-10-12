@@ -18,8 +18,8 @@ class NoteFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        _binding = FragmentNoteBinding.inflate(inflater, container, false)
-        val view = binding.root
+
+
         val taskId = NoteFragmentArgs.fromBundle(requireArguments()).noteId
 
         val application = requireNotNull(this.activity).application
@@ -28,13 +28,15 @@ class NoteFragment : Fragment() {
         val viewModelFactory = NotesViewModelFactory(taskId, dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(NotesViewModel::class.java)
+        _binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        viewModel.navigateToList.observe(viewLifecycleOwner, Observer { navigate ->
+        val view = binding.root
+        viewModel.navigateToHome.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 view.findNavController()
                     .navigate(R.id.action_noteFragment_to_homeFragment)
-                viewModel.onNavigatedToList()
+                viewModel.onNavigatedToHome()
             }
         })
         return view

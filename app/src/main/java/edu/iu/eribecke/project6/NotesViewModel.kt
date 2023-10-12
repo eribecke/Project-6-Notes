@@ -1,5 +1,6 @@
 package edu.iu.eribecke.project6
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,25 +8,36 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class NotesViewModel(noteId: Long, val dao: NoteDao) : ViewModel() {
-    val note = dao.get(noteId)
-    var newNoteName = ""
-    private val _navigateToList = MutableLiveData<Boolean>(false)
-    val navigateToList: LiveData<Boolean>
-        get() = _navigateToList
-    fun updateNote() {
-        viewModelScope.launch {
-            dao.update(note.value!!)
-            _navigateToList.value = true
+    var note = MutableLiveData<Note>()
+    val noteId : Long = noteId
+    private val _navigateToHome = MutableLiveData<Boolean>(false)
+    val navigateToHome: LiveData<Boolean>
+        get() = _navigateToHome
+
+    init {
+        dao.get(noteId).observeForever{it ->
+        if(it==null){
+            note.value = Note()
+        }
+        else{
+            note.value = it
+        }
         }
     }
-    fun deleteNote() {
+    fun updateNote() {
         viewModelScope.launch {
-            dao.delete(note.value!!)
-            _navigateToList.value = true
+            if(note.value?.noteId != 0L){
+                dao.update(note.value!!)
+            }
+            else{
+                dao.insert(note.value!!)
+            }
+            _navigateToHome.value = true
         }
     }
 
-    fun onNavigatedToList() {
-        _navigateToList.value = false
+
+    fun onNavigatedToHome() {
+        _navigateToHome.value = false
     }
 }

@@ -37,11 +37,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
         val view = binding.root
-        val adapter = NoteItemAdapter{ noteId ->
+        fun noteClicked (noteId : Long){
             viewModel.onNoteClicked(noteId)
         }
+        fun deleteClicked (noteId : Long){
+            binding.viewModel?.deleteNote(noteId)
+        }
+        val adapter = NoteItemAdapter(::noteClicked, ::deleteClicked)
         binding.notesList.adapter = adapter
 
         viewModel.notes.observe(viewLifecycleOwner, Observer {
