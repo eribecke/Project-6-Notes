@@ -20,12 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/title"
-        android:layout_weight="0"/>
+        android:layout_weight="0"
+        android:text="@={viewModel.note.noteName}"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/description"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:text="@={viewModel.note.noteDescription}"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

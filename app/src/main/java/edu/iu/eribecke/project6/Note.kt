@@ -10,6 +10,6 @@ data class Note(
     var noteId: Long = 0L,
     @ColumnInfo(name = "note_name")
     var noteName: String = "",
-    @ColumnInfo(name = "note_done")
-    var noteDone: Boolean = false
+    @ColumnInfo(name = "note_description")
+    var noteDescription: String = ""
 )
