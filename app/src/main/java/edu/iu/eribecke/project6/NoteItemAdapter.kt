@@ -16,6 +16,7 @@ class NoteItemAdapter(val clickListener: (noteId: Long) -> Unit, val deleteClick
         holder.bind(item, clickListener, deleteClickListener)
     }
 
+    //inflating recyclerView
     class NoteItemViewHolder(val binding: NoteItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
         companion object {
@@ -26,6 +27,7 @@ class NoteItemAdapter(val clickListener: (noteId: Long) -> Unit, val deleteClick
             }
         }
 
+        //sets listeners on Note item components
         fun bind(
             item: Note,
             clickListener: (noteId: Long) -> Unit,

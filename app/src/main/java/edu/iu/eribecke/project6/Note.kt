@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "note_table")
+//initializing note attributes
 data class Note(
     @PrimaryKey(autoGenerate = true)
     var noteId: Long = 0L,

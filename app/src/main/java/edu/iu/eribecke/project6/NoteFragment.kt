@@ -13,13 +13,14 @@ import edu.iu.eribecke.project6.databinding.FragmentNoteBinding
 
 class NoteFragment : Fragment() {
     // TODO: Rename and change types of parameters
+    //setting up binding
     private var _binding: FragmentNoteBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-
+        //initializing variables
         val taskId = NoteFragmentArgs.fromBundle(requireArguments()).noteId
 
         val application = requireNotNull(this.activity).application
@@ -32,6 +33,8 @@ class NoteFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         val view = binding.root
+
+        //navigates back to home fragment when navigateToHome value is changed
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer { navigate ->
             if (navigate) {
                 view.findNavController()

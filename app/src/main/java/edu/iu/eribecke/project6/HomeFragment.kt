@@ -21,6 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
+    //setting up binding
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment, adding variables
         val application = requireNotNull(this.activity).application
         val dao = NoteDatabase.getInstance(application).noteDao
         val viewModelFactory = HomeViewModelFactory(dao)
@@ -38,12 +39,24 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         val view = binding.root
+
+        //handles the action of clicking on a note
         fun noteClicked (noteId : Long){
             viewModel.onNoteClicked(noteId)
         }
-        fun deleteClicked (noteId : Long){
+
+        //deletes the note
+        fun deleteConfirmation(noteId : Long){
             binding.viewModel?.deleteNote(noteId)
         }
+
+        //triggers the dialogue for delete note confirmation
+        fun deleteClicked (noteId : Long){
+            DeleteConfirmDialogFragment(noteId,::deleteConfirmation).show(childFragmentManager,
+                DeleteConfirmDialogFragment.TAG)
+        }
+
+        //initializing adapter
         val adapter = NoteItemAdapter(::noteClicked, ::deleteClicked)
         binding.notesList.adapter = adapter
 
@@ -53,6 +66,7 @@ class HomeFragment : Fragment() {
             }
         })
 
+        //transitions to notes fragment if the value of navigateToNote is changed
         viewModel.navigateToNote.observe(viewLifecycleOwner, Observer { noteId ->
             noteId?.let {
                 val action = HomeFragmentDirections
