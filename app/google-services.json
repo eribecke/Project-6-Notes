@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "594266967785",
+    "firebase_url": "https://notes-app-5d4fc-default-rtdb.firebaseio.com",
+    "project_id": "notes-app-5d4fc",
+    "storage_bucket": "notes-app-5d4fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594266967785:android:bcba61d08a198e48c7aa78",
+        "android_client_info": {
+          "package_name": "edu.iu.eribecke.project6"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQQ5h1eNnSvORfpNMHxj5ScvEH-JDaUjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

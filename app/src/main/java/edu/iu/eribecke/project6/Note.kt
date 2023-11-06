@@ -1,16 +1,11 @@
 package edu.iu.eribecke.project6
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
 
-@Entity(tableName = "note_table")
 //initializing note attributes
 data class Note(
-    @PrimaryKey(autoGenerate = true)
-    var noteId: Long = 0L,
-    @ColumnInfo(name = "note_name")
+    @get:Exclude
+    var noteId: String = "",
     var noteName: String = "",
-    @ColumnInfo(name = "note_description")
     var noteDescription: String = ""
 )

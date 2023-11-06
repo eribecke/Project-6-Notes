@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.iu.eribecke.project6.databinding.NoteItemBinding
 
 
-class NoteItemAdapter(val clickListener: (noteId: Long) -> Unit, val deleteClickListener: (noteId: Long) -> Unit)
+class NoteItemAdapter(val clickListener: (note : Note) -> Unit,
+                      val deleteClickListener: (noteId: String) -> Unit)
 : ListAdapter<Note, NoteItemAdapter.NoteItemViewHolder>(NoteDiffItemCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : NoteItemViewHolder = NoteItemViewHolder.inflateFrom(parent)
@@ -30,12 +31,12 @@ class NoteItemAdapter(val clickListener: (noteId: Long) -> Unit, val deleteClick
         //sets listeners on Note item components
         fun bind(
             item: Note,
-            clickListener: (noteId: Long) -> Unit,
-            deleteClickListener: (noteId: Long) -> Unit)
+            clickListener: (note : Note) -> Unit,
+            deleteClickListener: (noteId: String) -> Unit)
         {
             binding.note = item
-            binding.root.setOnClickListener { clickListener(item.noteId)}
-            binding.deleteButton.setOnClickListener { deleteClickListener(item.noteId) }
+            binding.root.setOnClickListener { clickListener(item)}
+            binding.deleteButton.setOnClickListener { deleteClickListener(item.noteId!!) }
             }
         }
     }

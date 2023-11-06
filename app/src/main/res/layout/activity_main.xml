@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_host_fragment"
+    tools:context=".HomeFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="edu.iu.eribecke.project6.HomeViewModel"/>
+    </data>
+<androidx.appcompat.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:name="androidx.navigation.fragment.NavHostFragment"
-    app:navGraph="@navigation/nav_graph"
-    app:defaultNavHost="true"
-    tools:context=".MainActivity" />
+    android:padding="16dp">
+
+    <com.google.android.material.appbar.MaterialToolbar
+    android:id="@+id/toolbar"
+    app:title="Notes"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true" />
+</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

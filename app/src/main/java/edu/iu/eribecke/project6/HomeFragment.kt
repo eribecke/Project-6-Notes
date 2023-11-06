@@ -1,14 +1,16 @@
 package edu.iu.eribecke.project6
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import edu.iu.eribecke.project6.databinding.FragmentHomeBinding
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,28 +32,26 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment, adding variables
-        val application = requireNotNull(this.activity).application
-        val dao = NoteDatabase.getInstance(application).noteDao
-        val viewModelFactory = HomeViewModelFactory(dao)
-        val viewModel = ViewModelProvider(this,
-            viewModelFactory).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val application = requireNotNull(this.activity).application
+        val viewModel : HomeViewModel by activityViewModels()
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
         val view = binding.root
 
         //handles the action of clicking on a note
-        fun noteClicked (noteId : Long){
-            viewModel.onNoteClicked(noteId)
+        fun noteClicked (note : Note){
+            viewModel.onNoteClicked(note)
         }
 
         //deletes the note
-        fun deleteConfirmation(noteId : Long){
+        fun deleteConfirmation(noteId : String){
             binding.viewModel?.deleteNote(noteId)
         }
 
         //triggers the dialogue for delete note confirmation
-        fun deleteClicked (noteId : Long){
+        fun deleteClicked (noteId : String){
             DeleteConfirmDialogFragment(noteId,::deleteConfirmation).show(childFragmentManager,
                 DeleteConfirmDialogFragment.TAG)
         }
@@ -78,6 +78,8 @@ class HomeFragment : Fragment() {
 
         return view
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
